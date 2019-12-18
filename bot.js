@@ -30,7 +30,7 @@ function processCommand(receivedMessage) {
 }
 
 function helpCommand(arguments, receivedMessage) {
-  receivedMessage.channel.send("I'm a bot made by Evan that posts pictures :)")
+  receivedMessage.channel.send("Hi! Use: .pic [tags]\nExample tags: 1girl, solo, long_hair, highres, absurdres, smile, short_hair.\nFull-tag list is here: https://danbooru.donmai.us/tags")
 }
 
 function picCommand(arguments, receivedMessage) {
@@ -39,7 +39,10 @@ function picCommand(arguments, receivedMessage) {
 
         if(arguments.includes("rating:e")) {
           receivedMessage.channel.send("You're dirty... >:(")
-        } else {
+        } else if (arguments.includes("rating:e") || arguments.includes("rating:e") || arguments.includes("rating:s")) {
+
+        }
+        else {
         booru.posts({ tags: arguments.join(' ')}).then(posts => {
             // Select a random post from posts array
             const index = Math.floor(Math.random() * posts.length)
@@ -58,3 +61,4 @@ function picCommand(arguments, receivedMessage) {
 }
 
 client.login(process.env.SECRET_TOKEN);
+client.user.setPresence({ game: { name: '.help', type: 0 } });
