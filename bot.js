@@ -54,4 +54,4 @@ function picCommand(arguments, receivedMessage) {
         });
 }
 
-client.login(config.credentials.secret_token);
+client.login(process.env.SECRET_TOKEN);
