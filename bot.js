@@ -42,7 +42,6 @@ function picCommand(arguments, receivedMessage) {
         } else if (arguments.includes("rating:e") || arguments.includes("rating:e") || arguments.includes("rating:s")) {
 
         }
-        else {
         booru.posts({ tags: arguments.join(' ')}).then(posts => {
             // Select a random post from posts array
             const index = Math.floor(Math.random() * posts.length)
@@ -50,9 +49,17 @@ function picCommand(arguments, receivedMessage) {
             const url = booru.url(post.file_url)
             // Download post image using node's https and fs libraries
 
+
+            if (arguments.includes("rating:e")) {
+            receivedMessage.channel.send({
+              file: url.toString() // Or replace with FileOptions object
+              name: 'SPOILER_badimage.jpg'
+            });
+          } else {
             receivedMessage.channel.send({
               file: url.toString() // Or replace with FileOptions object
             });
+          }
 
         }).catch(function (err) {
         console.error(err.message);
