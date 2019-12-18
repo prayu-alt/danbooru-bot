@@ -51,13 +51,13 @@ function picCommand(arguments, receivedMessage) {
             const url = booru.url(post.file_url)
             // Download post image using node's https and fs libraries
 
-
-            if (arguments.includes("rating:e")) {
+            console.log(url)
+            if (arguments.includes("rating:e") || arguments.includes("rating:q") ) {
               receivedMessage.channel.send({
                 files: [{
                 attachment: url.toString(),
                 name: 'SPOILER_NAME.jpg'
-              }]
+                }]
               });
             } else {
               receivedMessage.channel.send({
