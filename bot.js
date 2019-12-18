@@ -30,8 +30,7 @@ function processCommand(receivedMessage) {
 }
 
 function helpCommand(arguments, receivedMessage) {
-  receivedMessage.channel.send("Hi! .pic [tags]\nCurrently the command defaults to using rating:safe without specifiying a argument.
-  \nThere are three ratings: rating:e, rating:q, and rating:s.\nExample tags: 1girl, solo, long_hair, highres, absurdres, smile, short_hair.\nFull-tag list is here: https://danbooru.donmai.us/tags")
+  receivedMessage.channel.send("Hi! .pic [tags]\nCurrently the command defaults to using rating:safe without specifiying a argument.\nThere are three ratings: rating:e, rating:q, and rating:s.\nExample tags: 1girl, solo, long_hair, highres, absurdres, smile, short_hair.\nFull-tag list is here: https://danbooru.donmai.us/tags")
 }
 
 function picCommand(arguments, receivedMessage) {
