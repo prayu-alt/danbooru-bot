@@ -37,6 +37,9 @@ function picCommand(arguments, receivedMessage) {
         const booru = new Danbooru()
         console.log(arguments);
 
+        if(arguments.includes("rating:e")) {
+          receivedMessage.channel.send("You're dirty... >:(")
+        } else {
         booru.posts({ tags: arguments.join(' ')}).then(posts => {
             // Select a random post from posts array
             const index = Math.floor(Math.random() * posts.length)
@@ -49,8 +52,9 @@ function picCommand(arguments, receivedMessage) {
             });
 
         }).catch(function (err) {
-        console.error("||" + err.message + "||");
+        console.error(err.message);
         });
+      }
 }
 
 client.login(process.env.SECRET_TOKEN);
