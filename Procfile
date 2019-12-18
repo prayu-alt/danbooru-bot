@@ -1,1 +1,1 @@
-web: node bot.js
+start: node bot.js
