@@ -30,19 +30,21 @@ function processCommand(receivedMessage) {
 }
 
 function helpCommand(arguments, receivedMessage) {
-  receivedMessage.channel.send("Hi! .pic [tags]\nCurrently the command defaults to using rating:safe without specifiying a argument.\nThere are three ratings: rating:e, rating:q, and rating:s.\nExample tags: 1girl, solo, long_hair, highres, absurdres, smile, short_hair.\nFull-tag list is here: https://danbooru.donmai.us/tags")
+  receivedMessage.channel.send("Hi! .pic [tags]\nCurrently the command defaults to using rating:safe and is random without specifiying any arguments.\nThere are three ratings: rating:e, rating:q, and rating:s.\nExample tags: 1girl, solo, long_hair, highres, absurdres, smile, short_hair.\nYou can use the order tag to get different results (order:rank).\nFull-tag list is here: https://danbooru.donmai.us/tags")
 }
 
 function picCommand(arguments, receivedMessage) {
         const booru = new Danbooru()
-        console.log(arguments);
 
-        if(arguments.includes("rating:e")) {
+
+        if(arguments.includes("rating:e") || arguments.includes("rating:explicit")) {
           receivedMessage.channel.send("You're dirty... >:(")
-        } else if (arguments.includes("rating:e") || arguments.includes("rating:q") || arguments.includes("rating:s")) {
-
+        } else if(!(arguments.includes("rating:e") || arguments.includes("rating:q") || arguments.includes("rating:s"))){
+          arguments[arguments.length] = "rating:s";
         }
-        booru.posts({ tags: arguments.join(' ')}).then(posts => {
+
+        console.log(arguments);
+        booru.posts({ tags: arguments.join(' '), random: true}).then(posts => {
             // Select a random post from posts array
             const index = Math.floor(Math.random() * posts.length)
             const post = posts[index]
@@ -51,21 +53,21 @@ function picCommand(arguments, receivedMessage) {
 
 
             if (arguments.includes("rating:e")) {
-            receivedMessage.channel.send({
-              file: url.toString(), // Or replace with FileOptions object
-              name: 'SPOILER_badimage.jpg'
-            });
-          } else {
-            receivedMessage.channel.send({
-              file: url.toString() // Or replace with FileOptions object
-            });
-          }
+              receivedMessage.channel.send({
+                files: [{
+                attachment: url.toString(),
+                name: 'SPOILER_NAME.jpg'
+              }]
+              });
+            } else {
+              receivedMessage.channel.send({
+                file: url.toString(), // Or replace with FileOptions object
+              });
+            }
 
         }).catch(function (err) {
-        console.error(err.message);
+          receivedMessage.channel.send("Either there were no results, or the tags you used were incorrect.")
         });
-      }
 }
-
+//client.user.setActivity('Type .help!', {type: PLAYING});
 client.login(process.env.SECRET_TOKEN);
-client.user.setPresence({ game: { name: '.help', type: 0 } });
