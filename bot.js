@@ -30,7 +30,8 @@ function processCommand(receivedMessage) {
 }
 
 function helpCommand(arguments, receivedMessage) {
-  receivedMessage.channel.send("Hi! Use: .pic [tags]\nExample tags: 1girl, solo, long_hair, highres, absurdres, smile, short_hair.\nFull-tag list is here: https://danbooru.donmai.us/tags")
+  receivedMessage.channel.send("Hi! .pic [tags]\nCurrently the command defaults to using rating:safe without specifiying a argument.
+  \nThere are three ratings: rating:e, rating:q, and rating:s.\nExample tags: 1girl, solo, long_hair, highres, absurdres, smile, short_hair.\nFull-tag list is here: https://danbooru.donmai.us/tags")
 }
 
 function picCommand(arguments, receivedMessage) {
@@ -39,7 +40,7 @@ function picCommand(arguments, receivedMessage) {
 
         if(arguments.includes("rating:e")) {
           receivedMessage.channel.send("You're dirty... >:(")
-        } else if (arguments.includes("rating:e") || arguments.includes("rating:e") || arguments.includes("rating:s")) {
+        } else if (arguments.includes("rating:e") || arguments.includes("rating:q") || arguments.includes("rating:s")) {
 
         }
         booru.posts({ tags: arguments.join(' ')}).then(posts => {
@@ -52,7 +53,7 @@ function picCommand(arguments, receivedMessage) {
 
             if (arguments.includes("rating:e")) {
             receivedMessage.channel.send({
-              file: url.toString() // Or replace with FileOptions object
+              file: url.toString(), // Or replace with FileOptions object
               name: 'SPOILER_badimage.jpg'
             });
           } else {
