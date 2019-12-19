@@ -52,7 +52,10 @@ function picCommand(arguments, receivedMessage) {
             // Download post image using node's https and fs libraries
 
             console.log(url)
-            if (arguments.includes("rating:e") || arguments.includes("rating:q") ) {
+            if (url.pathname === "/") {
+              throw "is Empty";
+            }
+            if (arguments.includes("rating:e") || arguments.includes("rating:explicit") || arguments.includes("rating:q") || arguments.includes("rating:questionable")) {
               receivedMessage.channel.send({
                 files: [{
                 attachment: url.toString(),
